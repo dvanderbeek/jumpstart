@@ -216,11 +216,11 @@ def add_multiple_authentication
 end
 
 def uuid_foreign_keys
-  names = ["add_account_to_users", "create_services"]
-  names.each do |name|
-    migration = Dir["db/migrate/**/*#{name}.rb"].first
-    gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
-  end
+  migration = Dir["db/migrate/**/*add_account_to_users.rb"].first
+  gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
+
+  migration = Dir["db/migrate/**/*create_services.rb"].first
+  gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
 end
 
 def add_whenever
