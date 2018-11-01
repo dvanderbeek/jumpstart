@@ -34,7 +34,6 @@ def add_gems
   gem 'devise_masquerade', '~> 0.6.2'
   gem 'font-awesome-sass', '~> 5.0', '>= 5.0.13'
   gem 'foreman', '~> 0.84.0'
-  gem 'friendly_id', '~> 5.2', '>= 5.2.4'
   gem 'gravatar_image_tag', github: 'mdeering/gravatar_image_tag'
   gem 'jquery-rails', '~> 4.3.1'
   gem 'local_time', '~> 2.0', '>= 2.0.1'
@@ -233,16 +232,6 @@ def add_whenever
   run "wheneverize ."
 end
 
-def add_friendly_id
-  generate "friendly_id"
-
-  insert_into_file(
-    Dir["db/migrate/**/*friendly_id_slugs.rb"].first,
-    "[5.2]",
-    after: "ActiveRecord::Migration"
-  )
-end
-
 def stop_spring
   run "spring stop"
 end
@@ -288,7 +277,6 @@ after_bundle do
   add_account_to_users
   add_multiple_authentication
   uuid_foreign_keys
-  add_friendly_id
 
   copy_templates
 
