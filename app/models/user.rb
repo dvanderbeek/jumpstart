@@ -13,9 +13,11 @@ class User < ApplicationRecord
 
   has_many :services
   has_one :owned_account, class_name: "Account", inverse_of: :owner, foreign_key: :owner_id
+  belongs_to :account
 
   def account_name=(name)
     build_owned_account(name: name)
+    self.account = owned_account
   end
 
   def account_name

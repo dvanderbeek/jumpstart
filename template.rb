@@ -148,6 +148,10 @@ def add_accounts
   gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }"
 end
 
+def add_account_to_users
+  generate "migration add_account_to_users account:belongs_to"
+end
+
 def add_administrate
   generate "administrate:install"
 
@@ -240,6 +244,7 @@ after_bundle do
   add_webpack
   add_announcements
   add_accounts
+  add_account_to_users
   add_multiple_authentication
   add_friendly_id
 
