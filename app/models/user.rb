@@ -21,6 +21,6 @@ class User < ApplicationRecord
   end
 
   def account_name
-    owned_account&.name
+    account&.name
   end
 end
