@@ -167,6 +167,14 @@ def add_administrate
     /FORM_ATTRIBUTES = \[/,
     "FORM_ATTRIBUTES = [\n    :password,"
 
+  gsub_file "app/dashboards/user_dashboard.rb",
+    /owned_account: Field::HasOne/,
+    "owned_account: Field::HasOne.with_options(class_name: \"Account\")"
+
+  gsub_file "app/dashboards/account_dashboard.rb",
+    /:owner_id,\n/,
+    ""
+
   gsub_file "app/controllers/admin/application_controller.rb",
     /# TODO Add authentication logic here\./,
     "redirect_to '/', alert: 'Not authorized.' unless user_signed_in? && current_user.admin?"
@@ -180,16 +188,6 @@ def add_app_helpers_to_administrate
     end
   RUBY
   end
-end
-
-def fix_administrate_dashboards
-  gsub_file "app/dashboards/user_dashboard.rb",
-    /owned_account: Field::HasOne/,
-    "owned_account: Field::HasOne.with_options(class_name: 'Account')"
-
-  gsub_file "app/dashboards/account_dashboard.rb",
-    /:owner_id,\n/,
-    ""
 end
 
 def add_multiple_authentication
@@ -268,7 +266,6 @@ after_bundle do
   add_administrate
 
   add_app_helpers_to_administrate
-  fix_administrate_dashboards
 
   add_whenever
 
