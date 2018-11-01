@@ -145,7 +145,7 @@ def add_accounts
   generate "model Account name owner:belongs_to"
 
   migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
-  gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }"
+  gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }, type: :uuid"
 end
 
 def add_account_to_users
@@ -237,6 +237,24 @@ def add_sitemap
   rails_command "sitemap:install"
 end
 
+def add_pgcrypto
+  generate "migration enable_pgcrypto_extension"
+
+  insert_into_file(
+    Dir["db/migrate/**/*enable_pgcrypto_extension.rb"].first,
+    "\n    enable_extension 'pgcrypto'\n",
+    after: "def change"
+  )
+
+  environment do <<-RUBY
+    # Use UUID's for primary keys
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
+  RUBY
+  end
+end
+
 # Main setup
 add_template_repository_to_source_path
 
@@ -245,6 +263,7 @@ add_gems
 after_bundle do
   set_application_name
   stop_spring
+  add_pgcrypto
   add_users
   add_bootstrap
   add_sidekiq
