@@ -141,11 +141,6 @@ def add_announcements
   route "resources :announcements, only: [:index]"
 end
 
-def add_notifications
-  generate "model Notification recipient_id:integer actor_id:integer read_at:datetime action:string notifiable_id:integer notifiable_type:string"
-  route "resources :notifications, only: [:index]"
-end
-
 def add_administrate
   generate "administrate:install"
 
@@ -237,7 +232,6 @@ after_bundle do
   add_foreman
   add_webpack
   add_announcements
-  add_notifications
   add_multiple_authentication
   add_friendly_id
 
