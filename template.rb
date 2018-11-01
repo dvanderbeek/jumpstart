@@ -150,9 +150,6 @@ end
 
 def add_account_to_users
   generate "migration add_account_to_users account:belongs_to"
-
-  migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
-  gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
 end
 
 def add_administrate
@@ -218,6 +215,14 @@ def add_multiple_authentication
           before: "  # ==> Warden configuration"
 end
 
+def uuid_foreign_keys
+  names = ["add_account_to_users", "create_services"]
+  names.each do |name|
+    migration = Dir["db/migrate/**/*#{name}.rb"].first
+    gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
+  end
+end
+
 def add_whenever
   run "wheneverize ."
 end
@@ -229,7 +234,7 @@ def add_friendly_id
     Dir["db/migrate/**/*friendly_id_slugs.rb"].first,
     "[5.2]",
     after: "ActiveRecord::Migration"
-  )
+  )cd
 end
 
 def stop_spring
@@ -245,7 +250,7 @@ def add_pgcrypto
 
   insert_into_file(
     Dir["db/migrate/**/*enable_pgcrypto_extension.rb"].first,
-    "\n    enable_extension 'pgcrypto'\n",
+    "\n    enable_extension 'pgcrypto'",
     after: "def change"
   )
 
@@ -276,6 +281,7 @@ after_bundle do
   add_accounts
   add_account_to_users
   add_multiple_authentication
+  uuid_foreign_keys
   add_friendly_id
 
   copy_templates
