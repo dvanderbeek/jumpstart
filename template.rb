@@ -146,6 +146,7 @@ def add_accounts
 
   in_root do
     migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
+    puts "MIGRATION FOR ACCOUNTS:::::>>>>#{migration}"
     gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }"
   end
 end
