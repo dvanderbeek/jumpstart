@@ -144,11 +144,9 @@ end
 def add_accounts
   generate "model Account name owner:belongs_to"
 
-  in_root do
-    migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
-    puts "MIGRATION FOR ACCOUNTS:::::>>>>#{migration}"
-    gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }"
-  end
+  migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
+  puts "MIGRATION FOR ACCOUNTS:::::>>>>#{migration}"
+  gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }"
 end
 
 def add_administrate
