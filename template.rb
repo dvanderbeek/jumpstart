@@ -187,6 +187,9 @@ def add_app_helpers_to_administrate
     end
   RUBY
   end
+
+  copy_file "templates/account_dashboard.rb", "app/dashboards/account_dashboard.rb", force: true
+  copy_file "templates/user_dashboard.rb", "app/dashboards/user_dashboard.rb", force: true
 end
 
 def add_multiple_authentication
