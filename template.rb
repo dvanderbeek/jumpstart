@@ -215,19 +215,19 @@ def add_multiple_authentication
           before: "  # ==> Warden configuration"
 end
 
-def uuid_foreign_keys
-  insert_into_file(
-    Dir["db/migrate/**/*add_account_to_users.rb"].first,
-    ", type: :uuid",
-    after: "foreign_key: true"
-  )
-
-  insert_into_file(
-    Dir["db/migrate/**/*create_services.rb"].first,
-    ", type: :uuid",
-    after: "foreign_key: true"
-  )
-end
+# def uuid_foreign_keys
+#   insert_into_file(
+#     Dir["db/migrate/**/*add_account_to_users.rb"].first,
+#     ", type: :uuid",
+#     after: "foreign_key: true"
+#   )
+#
+#   insert_into_file(
+#     Dir["db/migrate/**/*create_services.rb"].first,
+#     ", type: :uuid",
+#     after: "foreign_key: true"
+#   )
+# end
 
 def add_whenever
   run "wheneverize ."
@@ -287,7 +287,7 @@ after_bundle do
   add_accounts
   add_account_to_users
   add_multiple_authentication
-  uuid_foreign_keys
+  # uuid_foreign_keys
   add_friendly_id
 
   copy_templates
