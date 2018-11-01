@@ -150,6 +150,9 @@ end
 
 def add_account_to_users
   generate "migration add_account_to_users account:belongs_to"
+
+  migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
+  gsub_file migration, /foreign_key: true/, "foreign_key: true, type: :uuid"
 end
 
 def add_administrate
