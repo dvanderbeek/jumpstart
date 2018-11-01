@@ -141,6 +141,10 @@ def add_announcements
   route "resources :announcements, only: [:index]"
 end
 
+def add_accounts
+  generate "model Account name owner:belongs_to"
+end
+
 def add_administrate
   generate "administrate:install"
 
@@ -232,6 +236,7 @@ after_bundle do
   add_foreman
   add_webpack
   add_announcements
+  add_accounts
   add_multiple_authentication
   add_friendly_id
 
