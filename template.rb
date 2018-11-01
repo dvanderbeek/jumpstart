@@ -158,6 +158,22 @@ def add_administrate
     /announcement_type: Field::String/,
     "announcement_type: Field::Select.with_options(collection: Announcement::TYPES)"
 
+  gsub_file "app/dashboards/user_dashboard.rb",
+    /email: Field::String/,
+    "email: Field::String,\n    password: Field::String.with_options(searchable: false)"
+
+  gsub_file "app/dashboards/user_dashboard.rb",
+    /FORM_ATTRIBUTES = \[/,
+    "FORM_ATTRIBUTES = [\n    :password,"
+
+  gsub_file "app/dashboards/user_dashboard.rb",
+    /owned_account: Field::HasOne/,
+    "owned_account: Field::HasOne.with_options(class_name: Account.name)"
+
+  gsub_file "app/dashboards/account_dashboard.rb",
+    /:owner_id,\n\s*/,
+    ""
+
   gsub_file "app/controllers/admin/application_controller.rb",
     /# TODO Add authentication logic here\./,
     "redirect_to '/', alert: 'Not authorized.' unless user_signed_in? && current_user.admin?"
@@ -171,11 +187,6 @@ def add_app_helpers_to_administrate
     end
   RUBY
   end
-
-  remove_file "app/dashboards/account_dashboard.rb"
-  remove_file "app/dashboards/user_dashboard.rb"
-  copy_file "templates/account_dashboard.rb", "app/dashboards/account_dashboard.rb"
-  copy_file "templates/user_dashboard.rb", "app/dashboards/user_dashboard.rb"
 end
 
 def add_multiple_authentication
