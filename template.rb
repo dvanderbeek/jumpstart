@@ -187,7 +187,9 @@ def add_app_helpers_to_administrate
     end
   RUBY
   end
+end
 
+def replace_dashboards
   copy_file "templates/account_dashboard.rb", "app/dashboards/account_dashboard.rb", force: true
   copy_file "templates/user_dashboard.rb", "app/dashboards/user_dashboard.rb", force: true
 end
@@ -291,6 +293,7 @@ after_bundle do
   add_administrate
 
   add_app_helpers_to_administrate
+  replace_dashboards
 
   add_whenever
 
