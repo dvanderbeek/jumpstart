@@ -182,6 +182,16 @@ def add_app_helpers_to_administrate
   end
 end
 
+def fix_administrate_dashboards
+  gsub_file "app/dashboards/user_dashboard.rb",
+    /owned_account: Field::HasOne/,
+    "owned_account: Field::HasOne.with_options(class_name: "Account")"
+
+  gsub_file "app/dashboards/account_dashboard.rb",
+    /:owner_id,\n/,
+    ""
+end
+
 def add_multiple_authentication
     insert_into_file "config/routes.rb",
     ', controllers: { omniauth_callbacks: "users/omniauth_callbacks" }',
@@ -258,6 +268,7 @@ after_bundle do
   add_administrate
 
   add_app_helpers_to_administrate
+  fix_administrate_dashboards
 
   add_whenever
 
