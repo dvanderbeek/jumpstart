@@ -172,6 +172,8 @@ def add_app_helpers_to_administrate
   RUBY
   end
 
+  remove_file "app/dashboards/account_dashboard.rb"
+  remove_file "app/dashboards/user_dashboard.rb"
   copy_file "templates/account_dashboard.rb", "app/dashboards/account_dashboard.rb"
   copy_file "templates/user_dashboard.rb", "app/dashboards/user_dashboard.rb"
 end
