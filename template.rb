@@ -172,7 +172,7 @@ def add_administrate
     "owned_account: Field::HasOne.with_options(class_name: Account.name)"
 
   gsub_file "app/dashboards/account_dashboard.rb",
-    /:owner_id,\n/,
+    /:owner_id,\n    /,
     ""
 
   gsub_file "app/controllers/admin/application_controller.rb",
