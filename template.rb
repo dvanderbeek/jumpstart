@@ -265,7 +265,7 @@ def add_pgcrypto
 end
 
 def add_saas
-  generate "saas:install:migrations"
+  rails_command "saas:install:migrations"
 end
 
 # Main setup
