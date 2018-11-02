@@ -29,6 +29,26 @@ Or if you have downloaded this repo, you can reference template.rb locally:
 rails new myapp -d postgresql -m template.rb
 ```
 
+Set credentials for Stripe
+
+```yml
+development:
+  stripe:
+    public_key: pk_testasdf123
+    secret_key: sk_testasdf123
+
+production:
+  stripe:
+    public_key: pk_liveasdf123
+    secret_key: sk_liveasdf123
+```
+
+Import stripe plans
+
+```bash
+rake sync_stripe
+```
+
 #### Cleaning up
 
 ```bash
