@@ -42,6 +42,7 @@ def add_gems
   gem 'omniauth-facebook', '~> 5.0'
   gem 'omniauth-github', '~> 1.3'
   gem 'omniauth-twitter', '~> 1.4'
+  gem 'saas', github: 'dvanderbeek/saas', branch: 'master'
   gem 'sidekiq', '~> 5.1', '>= 5.1.3'
   gem 'sitemap_generator', '~> 6.0', '>= 6.0.1'
   gem 'webpacker', '~> 3.5', '>= 3.5.3'
@@ -263,6 +264,10 @@ def add_pgcrypto
   end
 end
 
+def add_saas
+  generate "saas:install:migrations"
+end
+
 # Main setup
 add_template_repository_to_source_path
 
@@ -273,6 +278,7 @@ after_bundle do
   stop_spring
   add_pgcrypto
   add_users
+  add_saas
   add_bootstrap
   add_sidekiq
   add_foreman
