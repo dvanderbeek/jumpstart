@@ -146,6 +146,8 @@ def add_accounts
 
   migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
   gsub_file migration, /foreign_key: true/, "foreign_key: { to_table: :users }, type: :uuid"
+
+  route "resource :account, only: [:edit, :update]"
 end
 
 def add_account_to_users

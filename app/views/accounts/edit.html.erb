@@ -1,0 +1,12 @@
+<h1>Account Settings</h1>
+
+<%= form_with(model: @account, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
