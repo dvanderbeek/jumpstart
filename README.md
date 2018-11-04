@@ -31,6 +31,10 @@ rails new myapp -d postgresql -m template.rb
 
 Set credentials for Stripe
 
+```bash
+EDITOR="subl --wait" rails credentials:edit
+```
+
 ```yml
 development:
   stripe:
