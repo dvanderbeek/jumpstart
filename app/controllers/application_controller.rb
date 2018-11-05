@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :account_name])
       devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     end
+
+    def current_subscriber
+      # For SaaS gem (Stripe subscription billing)
+      current_user.account
+    end
 end
