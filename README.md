@@ -40,11 +40,13 @@ development:
   stripe:
     public_key: pk_testasdf123
     secret_key: sk_testasdf123
+    signing_secret: whsec_testasdf123
 
 production:
   stripe:
     public_key: pk_liveasdf123
     secret_key: sk_liveasdf123
+    signing_secret: whsec_testasdf123
 ```
 
 Import stripe plans
