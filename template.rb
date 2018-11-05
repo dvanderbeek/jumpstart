@@ -269,6 +269,7 @@ end
 def add_saas
   rails_command "saas:install:migrations"
   route "mount Saas::Engine, at: '/saas'"
+  generate "saas:install"
 end
 
 # Main setup
